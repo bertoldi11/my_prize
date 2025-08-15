@@ -3,12 +3,11 @@ defmodule MyPrize.BussinessTest do
 
   alias MyPrize.Bussiness
   alias MyPrize.Prizes
-  alias MyPrize.Accounts
 
   describe "new_account/1" do
     test "new_account creates a new account with valid attributes" do
       attrs = %{"email" => "email@email.com", "name" => "Test User"}
-      assert {:ok, account} = Bussiness.new_account(attrs)
+      assert {:ok, _account} = Bussiness.new_account(attrs)
     end
 
     test "new_account returns error if account with email already exists" do
@@ -97,13 +96,16 @@ defmodule MyPrize.BussinessTest do
 
   describe "raffle_prize/1" do
     test "raffle_prize raffles a prize and assigns a winner" do
+      {ok, owner} =
+        Bussiness.new_account(%{"email" => "owner@email.com.br", "name" => "Owner User"})
       {:ok, account} =
         Bussiness.new_account(%{"email" => "email@email.com.br", "name" => "Test User"})
 
       {:ok, prize} =
         Bussiness.new_prize(%{
           "name" => "Test Prize",
-          "expiration_date" => Date.utc_today() |> Date.add(10)
+          "expiration_date" => Date.utc_today() |> Date.add(10),
+          "account_owner_id" => owner.id
         })
 
       {:ok, _} = Bussiness.apply_for_prize(account.id, prize.id)
@@ -119,29 +121,37 @@ defmodule MyPrize.BussinessTest do
 
   describe "prize_result/1" do
     test "prize_result returns the winner of a prize if it has been raffled" do
+      {:ok, owner} =
+        Bussiness.new_account(%{"email" => "owner@email.com.br", "name" => "Owner User"})
+
       {:ok, account} =
         Bussiness.new_account(%{"email" => "email@email.com.br", "name" => "Test User"})
 
       {:ok, prize} =
         Bussiness.new_prize(%{
           "name" => "Test Prize",
-          "expiration_date" => Date.utc_today() |> Date.add(10)
+          "expiration_date" => Date.utc_today() |> Date.add(10),
+          "account_owner_id" => owner.id
         })
 
       {:ok, _} = Bussiness.apply_for_prize(account.id, prize.id)
       {:ok, _} = Bussiness.raffle_prize(prize.id)
-      assert {:ok, %{prize: prize, winner: winner}} = Bussiness.prize_result(prize.id)
+      assert {:ok, %{prize: _prize, winner: winner}} = Bussiness.prize_result(prize.id)
       assert winner.id == account.id
     end
 
     test "prize_result returns error if prize has not been raffled" do
+      {:ok, owner} =
+        Bussiness.new_account(%{"email" => "owner@email.com.br", "name" => "Owner User"})
+
       {:ok, account} =
         Bussiness.new_account(%{"email" => "email@email.com.br", "name" => "Test User"})
 
       {:ok, prize} =
         Bussiness.new_prize(%{
           "name" => "Test Prize",
-          "expiration_date" => Date.utc_today() |> Date.add(10)
+          "expiration_date" => Date.utc_today() |> Date.add(10),
+          "account_owner_id" => owner.id
         })
 
       {:ok, _} = Bussiness.apply_for_prize(account.id, prize.id)
