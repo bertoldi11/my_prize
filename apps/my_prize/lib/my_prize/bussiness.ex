@@ -17,7 +17,19 @@ defmodule MyPrize.Bussiness do
   end
 
   def new_prize(attrs) do
-    Prizes.create_prize(attrs)
+    case Prizes.create_prize(attrs) do
+      {:ok, prize} ->
+        {:ok, prize}
+
+      {:error, changeset} ->
+        case get_in(changeset.errors, [:name]) do
+          {"has already been taken", _} ->
+            {:error, "Prize with this name already exists for the account owner"}
+
+          _ ->
+            {:error, changeset}
+        end
+    end
   end
 
   def apply_for_prize(account_id, prize_id) do
