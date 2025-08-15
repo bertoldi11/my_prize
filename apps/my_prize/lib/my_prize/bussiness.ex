@@ -6,7 +6,6 @@ defmodule MyPrize.Bussiness do
 
   alias MyPrize.Prizes
   alias MyPrize.Accounts
-  alias MyPrize.Repo
 
   def new_account(attrs) do
     case Accounts.get_account_by_email(attrs["email"]) do
