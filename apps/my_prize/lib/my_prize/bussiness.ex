@@ -1,7 +1,8 @@
 defmodule MyPrize.Bussiness do
   @moduledoc """
   The Bussiness context for MyPrize, handling business logic and interactions
-  between different contexts such as Prizes and Accounts."""
+  between different contexts such as Prizes and Accounts.
+  """
 
   alias MyPrize.Prizes
   alias MyPrize.Accounts
