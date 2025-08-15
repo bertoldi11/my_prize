@@ -12,6 +12,22 @@ defmodule MyPrizeWeb.ErrorJSON do
   #   %{errors: %{detail: "Internal Server Error"}}
   # end
 
+   def render("422.json", %{changeset: changeset}) do
+    errors =
+      changeset
+      |> Ecto.Changeset.traverse_errors()
+      |> Enum.map(fn {field, messages} ->
+        {field, Enum.join(messages, ", ")}
+      end)
+      |> Enum.into(%{})
+
+    %{errors: errors}
+  end
+
+  def render("400.json", %{message: message}) do
+    %{errors: %{detail: message}}
+  end
+
   # By default, Phoenix returns the status message from
   # the template name. For example, "404.json" becomes
   # "Not Found".
