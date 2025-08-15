@@ -3,11 +3,13 @@ defmodule MyPrizeWeb.Controllers.FallbackController do
   Translates controller action results into valid `Plug.Conn` responses.
   See `Phoenix.Controller.action_fallback/1` for more details
   """
-  alias MyPrizeWeb.ErrorView
+  use Phoenix.Controller
+
+  alias MyPrizeWeb.ErrorJSON
   alias Ecto.Changeset
   alias Plug.Conn
 
-  import Phoenix.Controller, only: [put_view: 2, render: 3, put_status: 2]
+
 
   @doc """
   Handles errors returned by Ecto's insert/update/delete.
@@ -15,14 +17,17 @@ defmodule MyPrizeWeb.Controllers.FallbackController do
   def call(conn, {:error, %Changeset{} = changeset}) do
     conn
     |> put_status(:unprocessable_entity)
-    |> put_view(ErrorView)
+    |> put_view(ErrorJSON)
     |> render("422.json", changeset: changeset)
   end
 
+  @doc """
+  Handles errors returned by the business logic.
+  """
   def call(conn, {:error, message}) when is_binary(message) do
     conn
     |> put_status(:bad_request)
-    |> put_view(ErrorView)
+    |> put_view(ErrorJSON)
     |> render("400.json", message: message)
   end
 end
