@@ -89,14 +89,14 @@ defmodule MyPrize.BussinessTest do
 
       {:ok, _} = Bussiness.apply_for_prize(account.id, prize.id)
 
-      assert {:error, "Account has already applied for this prize"} =
+      assert {:error, "Account already applied for this prize"} =
                Bussiness.apply_for_prize(account.id, prize.id)
     end
   end
 
   describe "raffle_prize/1" do
     test "raffle_prize raffles a prize and assigns a winner" do
-      {ok, owner} =
+      {:ok, owner} =
         Bussiness.new_account(%{"email" => "owner@email.com.br", "name" => "Owner User"})
       {:ok, account} =
         Bussiness.new_account(%{"email" => "email@email.com.br", "name" => "Test User"})
@@ -115,7 +115,8 @@ defmodule MyPrize.BussinessTest do
     end
 
     test "raffle_prize returns error if prize does not exist" do
-      assert {:error, "Prize not found"} = Bussiness.raffle_prize("non_existent_prize_id")
+      non_existent_prize_id = Ecto.UUID.generate()
+      assert {:error, "Prize not found"} = Bussiness.raffle_prize(non_existent_prize_id)
     end
   end
 
