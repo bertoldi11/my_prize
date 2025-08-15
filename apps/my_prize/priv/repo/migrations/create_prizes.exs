@@ -7,7 +7,7 @@ defmodule MyPrize.Repo.Migrations.CreatePrizes do
       add :name, :string, null: false
       add :description, :string, null: false
       add :account_owner_id, :binary_id, null: false
-      add :expiration_date, :utc_date
+      add :expiration_date, :date
       add :raffle_winner_id, :binary_id
       add :accounts_applied, {:array, :binary_id}, default: []
 

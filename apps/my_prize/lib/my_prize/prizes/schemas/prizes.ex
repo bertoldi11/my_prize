@@ -9,7 +9,7 @@ defmodule MyPrize.Prizes.Schemas.Prizes do
     field :name, :string
     field :description, :string
     field :account_owner_id, :binary_id
-    field :expiration_date, :utc_date
+    field :expiration_date, :date
     field :raffle_winner_id, :binary_id, null: true
     field :accounts_applied, {:array, :binary_id}, default: []
 
