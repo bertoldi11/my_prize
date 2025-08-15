@@ -9,6 +9,7 @@ defmodule MyPrizeWeb.Router do
     pipe_through :api
 
     resources "/account/user", MyPrizeController, only: [:new]
+    resources  "/prize"
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
