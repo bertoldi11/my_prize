@@ -1,5 +1,5 @@
 defmodule MyPrize.BussinessTest do
-  use ExUnit.Case, async: true
+  use MyPrize.DataCase, async: true
 
   alias MyPrize.Bussiness
   alias MyPrize.Prizes

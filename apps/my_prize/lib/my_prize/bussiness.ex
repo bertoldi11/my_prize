@@ -3,8 +3,6 @@ defmodule MyPrize.Bussiness do
   The Bussiness context for MyPrize, handling business logic and interactions
   between different contexts such as Prizes and Accounts.
   """
-  use MyPrize.DataCase, async: true
-
   alias MyPrize.Prizes
   alias MyPrize.Accounts
 
