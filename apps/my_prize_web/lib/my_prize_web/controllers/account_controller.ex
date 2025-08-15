@@ -1,7 +1,7 @@
 defmodule MyPrizeWeb.Controllers.AccountController do
   use MyPrizeWeb, :controller
   alias MyPrize.Bussiness
-  fallback MyPrizeWeb.Controllers.FallbackController
+  action_fallback MyPrizeWeb.Controllers.FallbackController
 
   def new(conn, params) do
     with {:ok, account} <- Bussiness.create_account(params) do
