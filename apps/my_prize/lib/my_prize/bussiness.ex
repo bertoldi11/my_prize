@@ -11,7 +11,7 @@ defmodule MyPrize.Bussiness do
   def new_account(attrs) do
     case Accounts.get_account_by_email(attrs["email"]) do
       nil ->
-        create_account(attrs)
+        Accounts.create_account(attrs)
 
       _account ->
         {:error, "Account with this email already exists"}
