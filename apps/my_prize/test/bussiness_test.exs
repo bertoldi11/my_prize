@@ -5,7 +5,6 @@ defmodule MyPrize.BussinessTest do
   alias MyPrize.Prizes
   alias MyPrize.Accounts
 
-d
   describe "new_account/1" do
     test "new_account creates a new account with valid attributes" do
       attrs = %{"email" => "email@email.com", "name" => "Test User"}
