@@ -7,7 +7,7 @@ defmodule MyPrizeWeb.Controllers.FallbackController do
   alias Ecto.Changeset
   alias Plug.Conn
 
-  import Phoenix.Controller, only: [put_view: 2, render: 3]
+  import Phoenix.Controller, only: [put_view: 2, render: 3, put_status: 2]
 
   @doc """
   Handles errors returned by Ecto's insert/update/delete.
