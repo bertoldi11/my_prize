@@ -21,6 +21,6 @@ defmodule MyPrize.Prizes.Schemas.Prizes do
     prize
     |> cast(attrs, [:name, :description, :expiration_date, :raffle_winner_id, :accounts_applied, :account_owner_id])
     |> validate_required([:name, :expiration_date])
-    |> unique_constraint(:name, :account_owner_id, name: :unique_prize_per_account)
+    |> unique_constraint([:name, :account_owner_id], name: :unique_prize_per_account)
   end
 end
