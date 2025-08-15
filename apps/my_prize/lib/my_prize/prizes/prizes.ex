@@ -35,11 +35,15 @@ defmodule MyPrize.Prizes do
   """
   def update_prize(id, attrs) do
     prize = get_prize(id)
+
     case prize do
-      nil -> {:error, "Prize not found"}
-      _ ->  prize
-            |> Prizes.changeset(attrs)
-            |> Repo.update()
+      nil ->
+        {:error, "Prize not found"}
+
+      _ ->
+        prize
+        |> Prizes.changeset(attrs)
+        |> Repo.update()
     end
   end
 end

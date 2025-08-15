@@ -9,6 +9,7 @@ defmodule MyPrizeWeb.Router do
     pipe_through :api
 
     resources "/account", Controllers.AccountController, only: [:new]
+
     resources "/prize", Controllers.PrizeController, only: [:new] do
       get "/result", Controllers.PrizeController, :result
       post "/apply", Controllers.PrizeController, :apply

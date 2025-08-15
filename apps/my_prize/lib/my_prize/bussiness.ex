@@ -34,7 +34,6 @@ defmodule MyPrize.Bussiness do
           _ ->
             apply_account_to_prize(account_id, prize)
         end
-
     end
   end
 
@@ -79,18 +78,18 @@ defmodule MyPrize.Bussiness do
   end
 
   defp apply_account_to_prize(account_id, prize) do
-     case Accounts.get_account(account_id) do
-        nil ->
-          {:error, "Account not found"}
+    case Accounts.get_account(account_id) do
+      nil ->
+        {:error, "Account not found"}
 
-        account ->
-          if account.id in prize.accounts_applied do
-            {:error, "Account already applied for this prize"}
-          else
-            updated_accounts = [account.id | prize.accounts_applied]
-            Prizes.update_prize(prize.id, %{accounts_applied: updated_accounts})
-            {:ok, prize}
-          end
+      account ->
+        if account.id in prize.accounts_applied do
+          {:error, "Account already applied for this prize"}
+        else
+          updated_accounts = [account.id | prize.accounts_applied]
+          Prizes.update_prize(prize.id, %{accounts_applied: updated_accounts})
+          {:ok, prize}
+        end
     end
   end
 end

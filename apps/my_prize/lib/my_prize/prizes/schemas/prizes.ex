@@ -19,7 +19,14 @@ defmodule MyPrize.Prizes.Schemas.Prizes do
   @doc false
   def changeset(prize, attrs) do
     prize
-    |> cast(attrs, [:name, :description, :expiration_date, :raffle_winner_id, :accounts_applied, :account_owner_id])
+    |> cast(attrs, [
+      :name,
+      :description,
+      :expiration_date,
+      :raffle_winner_id,
+      :accounts_applied,
+      :account_owner_id
+    ])
     |> validate_required([:name, :account_owner_id, :expiration_date])
     |> unique_constraint([:name, :account_owner_id], name: :unique_prize_per_account)
   end
