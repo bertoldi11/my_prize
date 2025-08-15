@@ -1,14 +1,11 @@
 defmodule MyPrizeWeb.Controllers.AccountController do
   use MyPrizeWeb, :controller
   alias MyPrize.Bussiness
+  fallback MyPrizeWeb.Controllers.FallbackController
 
   def new(conn, params) do
-    case Bussiness.new_account(params) do
-      {:ok, account} ->
-        json(conn, %{status: "success", account: account})
-
-      {:error, reason} ->
-        json(conn, %{status: "error", reason: reason})
+    with {:ok, account} <- Bussiness.create_account(params) do
+      json(conn, %{status: "success", account: account})
     end
   end
 end
