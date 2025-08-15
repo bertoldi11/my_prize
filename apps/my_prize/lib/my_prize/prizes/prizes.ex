@@ -34,8 +34,12 @@ defmodule MyPrize.Prizes do
   Updates a prize with the given ID and attributes.
   """
   def update_prize(id, attrs) do
-    prize
-    |> Prizes.changeset(attrs)
-    |> Repo.update()
+    prize = get_prize(id)
+    case prize do
+      nil -> {:error, "Prize not found"}
+      _ ->  prize
+            |> Prizes.changeset(attrs)
+            |> Repo.update()
+    end
   end
 end
