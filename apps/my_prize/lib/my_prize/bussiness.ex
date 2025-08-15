@@ -79,7 +79,7 @@ defmodule MyPrize.Bussiness do
   end
 
   defp apply_account_to_prize(account_id, prize) do
-     case Accounts.get_account!(account_id) do
+     case Accounts.get_account(account_id) do
         nil ->
           {:error, "Account not found"}
 
