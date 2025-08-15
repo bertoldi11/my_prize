@@ -69,8 +69,9 @@ defmodule MyPrize.BussinessTest do
       {:ok, account} =
         Bussiness.new_account(%{"email" => "email@email.com.br", "name" => "Test User"})
 
+      non_existent_prize_id = Ecto.UUID.generate()
       assert {:error, "Prize not found"} =
-               Bussiness.apply_for_prize(account.id, "non_existent_prize_id")
+               Bussiness.apply_for_prize(account.id, non_existent_prize_id)
     end
 
     test "apply_for_prize returns error if account has already applied for the prize" do
