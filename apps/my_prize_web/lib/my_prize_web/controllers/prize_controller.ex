@@ -4,7 +4,7 @@ defmodule MyPrizeWeb.Controllers.PrizeController do
 
   action_fallback MyPrizeWeb.Controllers.FallbackController
 
-  def new(conn, params) do
+  def create(conn, params) do
     with {:ok, prize} <- Bussiness.new_prize(params) do
       json(conn, %{status: "success", prize: prize})
     end

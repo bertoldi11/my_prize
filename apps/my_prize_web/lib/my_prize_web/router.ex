@@ -10,10 +10,9 @@ defmodule MyPrizeWeb.Router do
 
     resources "/account", Controllers.AccountController, only: [:create]
 
-    resources "/prize", Controllers.PrizeController, only: [:create] do
-      get "/result", Controllers.PrizeController, :result
-      post "/apply", Controllers.PrizeController, :apply
-    end
+    resources "/prize", Controllers.PrizeController, only: [:create]
+    get "/prize/result", Controllers.PrizeController, :result
+    post "/prize/apply", Controllers.PrizeController, :apply
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
