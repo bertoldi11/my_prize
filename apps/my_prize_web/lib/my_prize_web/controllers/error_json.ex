@@ -16,7 +16,12 @@ defmodule MyPrizeWeb.ErrorJSON do
     errors =
       changeset
       |> Ecto.Changeset.traverse_errors(fn {msg, opts} ->
-        Ecto.Changeset.humanize_error(msg, opts)
+        Enum.reduce(opts, msg, fn {key, value}, acc ->
+          String.replace(acc, "%{#{key}}", to_string(value))
+        end)
+      end)
+      |> Enum.map(fn {field, messages} ->
+        %{field: field, messages: messages}
       end)
 
     %{errors: errors}
