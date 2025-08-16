@@ -47,4 +47,5 @@ defmodule  MyPrizeWeb.Controllers.PrizeControllerTetst do
       conn = post(conn, "/api/prize/apply", apply_attrs)
       assert %{"errors" => "Prize not found"} = json_response(conn, 404)
     end
+  end
 end
