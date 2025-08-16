@@ -45,7 +45,7 @@ defmodule  MyPrizeWeb.Controllers.PrizeControllerTetst do
     test "fails to apply for a non-existent prize", %{conn: conn} do
       apply_attrs = %{"account_id" => Ecto.UUID.generate(), "prize_id" => Ecto.UUID.generate()}
       conn = post(conn, "/api/prize/apply", apply_attrs)
-      assert %{"errors" => "Prize not found"} = json_response(conn, 400)
+      assert %{"errors" => %{"detail" => "Prize not found"}} = json_response(conn, 400)
     end
   end
 end
