@@ -5,6 +5,8 @@ defmodule MyPrize.Prizes.Schemas.Prizes do
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
 
+  @derived_by {Jason.Encoder, only: [:id, :name, :description, :account_owner_id, :expiration_date, :raffle_winner_id, :accounts_applied, :inserted_at, :updated_at]}
+
   schema "prizes" do
     field :name, :string
     field :description, :string
