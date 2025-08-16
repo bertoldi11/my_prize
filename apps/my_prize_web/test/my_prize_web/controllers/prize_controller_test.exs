@@ -16,7 +16,7 @@ defmodule  MyPrizeWeb.Controllers.PrizeControllerTetst do
 
   describe "create prize" do
     test "creates a new prize and returns it", %{conn: conn} do
-      {:ok, user} = Bussiness.create_user(%{"name" => "Test User", "email" => "email@email.com.br"})
+      {:ok, user} = Bussiness.new_account(%{"name" => "Test User", "email" => "email@email.com.br"})
       create_attrs = Map.put(@create_attrs, "account_owner_id", user["id"])
 
       conn = post(conn, "/api/prize", create_attrs)
@@ -26,7 +26,7 @@ defmodule  MyPrizeWeb.Controllers.PrizeControllerTetst do
     end
 
     test "fails to create a prize with invalid data", %{conn: conn} do
-      conn = post(conn, "/api/prize", @invalid_attrs)
+      conn = post(conn, "/api/prize", @invalid_create_attrs)
       assert %{"error" => _} = json_response(conn, 400)
     end
   end
