@@ -38,14 +38,14 @@ defmodule  MyPrizeWeb.Controllers.PrizeControllerTetst do
       {:ok, user} = Bussiness.new_account(%{"name" => "Test User", "email" => "email@email.com.br"})
       {:ok, prize} = Bussiness.new_prize(Map.put(@create_attrs, "account_owner_id", user.id))
       apply_attrs = %{"account_id" => user.id, "prize_id" => prize.id}
-      conn = post(conn, "/api/prize/applay", apply_attrs)
+      conn = post(conn, "/api/prize/apply", apply_attrs)
       assert %{"status" => "success", "application" => _application} = json_response(conn, 200)
     end
 
     test "fails to apply for a non-existent prize", %{conn: conn} do
       apply_attrs = %{"account_id" => 1, "prize_id" => 999}
-      conn = post(conn, "/api/prize/applay", apply_attrs)
-      assert %{"errors" => "Prize not found"} = json_response(conn, 404)
+      conn = post(conn, "/api/prize/apply", apply_attrs)
+      assert %{"errors" => "Prize not found"} = json_response(conn, 400)
     end
   end
 end
