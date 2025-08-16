@@ -5,13 +5,15 @@ defmodule  MyPrizeWeb.Controllers.PrizeControllerTetst do
   @create_attrs %{
     "name" => "Sample Prize",
     "description" => "This is a sample prize description.",
-    "account_owner_id" => nil
+    "account_owner_id" => nil,
+    "expiration_date" => "2027-12-31"
   }
 
   @invalid_create_attrs %{
     "name" => "",
     "description" => "This is a sample prize description.",
-    "account_owner_id" => nil
+    "account_owner_id" => nil,
+    "expiration_date" => nil
   }
 
   describe "create prize" do
@@ -27,7 +29,7 @@ defmodule  MyPrizeWeb.Controllers.PrizeControllerTetst do
 
     test "fails to create a prize with invalid data", %{conn: conn} do
       conn = post(conn, "/api/prize", @invalid_create_attrs)
-      assert %{"error" => _} = json_response(conn, 422)
+      assert %{"errors" => _} = json_response(conn, 422)
     end
   end
 end
