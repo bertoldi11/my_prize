@@ -52,9 +52,11 @@ defmodule  MyPrizeWeb.Controllers.PrizeControllerTetst do
   describe "get prize result" do
     test "retrieves the result of a prize", %{conn: conn} do
       {:ok, user} = Bussiness.new_account(%{"name" => "Test User", "email" => "owner@email.com.br"})
+      {:ok, winner} = Bussiness.new_account(%{"name" => "Winner User", "email" => "winner@email.com.br"})
       {:ok, prize} =
         @create_attrs
         |> Map.put("account_owner_id", user.id)
+        |> Map.put("raffle_winner_id", winner.id)
         |> Bussiness.new_prize()
 
       {:ok, result} = Bussiness.prize_result(prize.id)
