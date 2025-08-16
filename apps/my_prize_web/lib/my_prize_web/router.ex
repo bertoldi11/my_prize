@@ -11,7 +11,7 @@ defmodule MyPrizeWeb.Router do
     resources "/account", Controllers.AccountController, only: [:create]
 
     resources "/prize", Controllers.PrizeController, only: [:create]
-    get "/prize/result", Controllers.PrizeController, :result
+    get "/prize/result/:prize_id", Controllers.PrizeController, :result
     post "/prize/apply", Controllers.PrizeController, :apply
   end
 

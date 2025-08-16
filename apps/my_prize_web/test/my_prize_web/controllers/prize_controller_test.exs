@@ -48,4 +48,18 @@ defmodule  MyPrizeWeb.Controllers.PrizeControllerTetst do
       assert %{"errors" => %{"detail" => "Prize not found"}} = json_response(conn, 400)
     end
   end
+
+  describe "get prize result" do
+    test "retrieves the result of a prize", %{conn: conn} do
+      {:ok, user} = Bussiness.new_account(%{"name" => "Test User", "email" => "owner@email.com.br"})
+      {:ok, prize} =
+        @create_attrs
+        |> Map.put("account_owner_id", user.id)
+        |> Bussiness.new_prize()
+
+      {:ok, result} = Bussiness.prize_result(prize.id)
+      conn = get(conn, "/api/prize/result/#{prize.id}")
+      assert %{"status" => "success", "result" => ^result} = json_response(conn, 200)
+    end
+  end
 end
