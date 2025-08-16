@@ -11,8 +11,7 @@ defmodule MyPrizeWeb.Controllers.AccountControllerTest do
   describe "create account" do
     test "renders account when data is valid", %{conn: conn} do
       conn = post(conn, "/api/account", @create_attrs)
-      IO.inspect(conn, label: "Response from account creation")
-      assert %{status: "success", account: _account} = json_response(conn, 200)["data"]
+      assert %{status: "success", account: _account} = json_response(conn, 200)
     end
 
     test "renders errors when data is invalid", %{conn: conn} do
