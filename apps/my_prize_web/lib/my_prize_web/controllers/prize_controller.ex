@@ -10,7 +10,7 @@ defmodule MyPrizeWeb.Controllers.PrizeController do
     end
   end
 
-  def applay(conn, params) do
+  def apply(conn, params) do
     account_id = params["account_id"]
     prize_id = params["prize_id"]
 
