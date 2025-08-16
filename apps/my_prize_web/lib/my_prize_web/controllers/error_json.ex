@@ -15,11 +15,9 @@ defmodule MyPrizeWeb.ErrorJSON do
    def render("422.json", %{changeset: changeset}) do
     errors =
       changeset
-      |> Ecto.Changeset.traverse_errors()
-      |> Enum.map(fn {field, messages} ->
-        {field, Enum.join(messages, ", ")}
+      |> Ecto.Changeset.traverse_errors(fn {msg, opts} ->
+        Ecto.Changeset.humanize_error(msg, opts)
       end)
-      |> Enum.into(%{})
 
     %{errors: errors}
   end
