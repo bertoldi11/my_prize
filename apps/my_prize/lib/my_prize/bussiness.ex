@@ -6,7 +6,7 @@ defmodule MyPrize.Bussiness do
   alias MyPrize.Prizes
   alias MyPrize.Accounts
 
-  def new_account(%{"email" => nil} = attrs) do
+  def new_account(%{"email" => nil}) do
     {:error, "Invalid email"}
   end
 
