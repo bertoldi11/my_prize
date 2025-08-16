@@ -32,4 +32,19 @@ defmodule  MyPrizeWeb.Controllers.PrizeControllerTetst do
       assert %{"errors" => _} = json_response(conn, 422)
     end
   end
+
+  describe "apply for prize" do
+    test "applies for a prize successfully", %{conn: conn} do
+      {:ok, user} = Bussiness.new_account(%{"name" => "Test User", "email" => "email@email.com.br"})
+      {:ok, prize} = Bussiness.new_prize(Map.put(@create_attrs, "account_owner_id", user.id))
+      apply_attrs = %{"account_id" => user.id, "prize_id" => prize.id}
+      conn = post(conn, "/api/prize/apply", apply_attrs)
+      assert %{"status" => "success", "application" => _application} = json_response(conn, 200)
+    end
+
+    test "fails to apply for a non-existent prize", %{conn: conn} do
+      apply_attrs = %{"account_id" => 1, "prize_id" => 999}
+      conn = post(conn, "/api/prize/apply", apply_attrs)
+      assert %{"errors" => "Prize not found"} = json_response(conn, 404)
+    end
 end
