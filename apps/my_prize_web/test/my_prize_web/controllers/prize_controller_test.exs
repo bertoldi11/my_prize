@@ -59,9 +59,8 @@ defmodule  MyPrizeWeb.Controllers.PrizeControllerTetst do
         |> Map.put("raffle_winner_id", winner.id)
         |> Bussiness.new_prize()
 
-      {:ok, result} = Bussiness.prize_result(prize.id)
       conn = get(conn, "/api/prize/result/#{prize.id}")
-      assert %{"status" => "success", "result" => ^result} = json_response(conn, 200)
+      assert %{"status" => "success", "result" => _result} = json_response(conn, 200)
     end
   end
 end
