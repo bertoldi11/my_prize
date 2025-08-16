@@ -19,3 +19,4 @@ defmodule MyPrizeWeb.Controllers.AccountControllerTest do
       assert json_response(conn, 422)["errors"] != %{}
     end
   end
+end

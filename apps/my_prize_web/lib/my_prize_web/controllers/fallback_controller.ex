@@ -7,12 +7,11 @@ defmodule MyPrizeWeb.Controllers.FallbackController do
 
   alias MyPrizeWeb.ErrorJSON
   alias Ecto.Changeset
-  alias Plug.Conn
 
 
 
   @doc """
-  Handles errors returned by Ecto's insert/update/delete.
+  Handles errors returned by Ecto's insert/update/delete. and bussiness logic.
   """
   def call(conn, {:error, %Changeset{} = changeset}) do
     conn
@@ -21,9 +20,6 @@ defmodule MyPrizeWeb.Controllers.FallbackController do
     |> render("422.json", changeset: changeset)
   end
 
-  @doc """
-  Handles errors returned by the business logic.
-  """
   def call(conn, {:error, message}) when is_binary(message) do
     conn
     |> put_status(:bad_request)
