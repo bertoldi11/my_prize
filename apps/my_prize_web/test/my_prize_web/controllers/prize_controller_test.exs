@@ -1,4 +1,4 @@
-demodule  MyPrizeWeb.Controllers.PrizeControllerTetst do
+defmodule  MyPrizeWeb.Controllers.PrizeControllerTetst do
   use MyPrizeWeb.ConnCase
   alias MyPrize.Bussiness
 
